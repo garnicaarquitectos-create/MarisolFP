@@ -2,115 +2,560 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>Mis Finanzas</title>
 <style>
-:root{
-  --bg:#f7f9fc;--card:#fff;--text:#111827;--muted:#6b7280;--line:#e5e7eb;
-  --blue:#2563eb;--blue2:#1d4ed8;--green:#15803d;--greenSoft:#eefbf4;
-  --red:#dc2626;--redSoft:#fff1f2;--purple:#7c3aed;--purpleSoft:#f4efff;
-  --orange:#f59e0b;--orangeSoft:#fff7ed;--soft:#f8fafc;--dark:#111;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);max-width:430px;margin:auto;padding:18px 18px 104px;}
-.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.header h1{font-size:24px;font-weight:850}.iconBtn{width:42px;height:42px;border:none;border-radius:16px;background:#fff;box-shadow:0 3px 12px rgba(15,23,42,.06);font-size:20px;color:#334155}
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}.tab{border:none;border-radius:16px;padding:12px 8px;background:#eef2f7;color:#64748b;font-weight:750;font-size:13px;transition:.18s}.tab.active{background:var(--blue);color:#fff;transform:translateY(-1px);box-shadow:0 8px 18px rgba(37,99,235,.25)}
-.screen{display:none}.screen.active{display:block;animation:fade .18s ease}@keyframes fade{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:12px;box-shadow:0 4px 14px rgba(15,23,42,.045)}.hero{background:linear-gradient(145deg,#2563eb,#1d4ed8);color:#fff;border:none;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;right:-35px;top:-25px;width:178px;height:178px;border-radius:50%;background:rgba(255,255,255,.1)}
-.title{font-size:12px;letter-spacing:.9px;text-transform:uppercase;color:var(--muted);font-weight:850;margin-bottom:8px}.hero .title{color:rgba(255,255,255,.9)}.big{font-size:44px;line-height:1;font-weight:900;letter-spacing:-1px}.subline{font-size:15px;color:var(--muted);margin-top:7px;line-height:1.35}.hero .subline{color:rgba(255,255,255,.92);font-weight:650}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.kpi{min-height:140px;display:flex;flex-direction:column;justify-content:center}.kpi.red{background:var(--redSoft)}.kpi.green{background:var(--greenSoft)}.amount{font-size:30px;font-weight:900;margin-top:8px}.redText{color:var(--red)}.greenText{color:var(--green)}.blueText{color:var(--blue)}.purpleText{color:var(--purple)}
-.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:none}.rowMain{font-weight:780}.rowSub{font-size:12px;color:var(--muted);margin-top:2px}.amountRight{font-weight:900;text-align:right;white-space:nowrap}.pill{display:inline-block;border-radius:999px;padding:5px 10px;background:#f1f5f9;font-size:12px;font-weight:750;color:#475569;margin-top:6px}.progress{height:5px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:7px}.progress span{display:block;height:100%;border-radius:999px;background:var(--blue);width:0%}
-.inputGroup{margin-top:12px}label{display:block;font-size:12px;letter-spacing:.4px;text-transform:uppercase;color:#64748b;font-weight:850;margin-bottom:6px}input,select{width:100%;border:1px solid var(--line);border-radius:14px;padding:13px 14px;font-size:16px;background:#fff;color:var(--text)}.btn{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weight:850;width:100%}.btn.primary{background:var(--blue);color:#fff}.btn.black{background:#111;color:#fff}.btn.soft{background:#f1f5f9;color:#334155}.btn.red{background:var(--redSoft);color:var(--red)}.btn.green{background:var(--greenSoft);color:var(--green)}.btnRow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.hidden{display:none!important}.empty{color:var(--muted);font-size:15px;padding:8px 0}.small{font-size:12px;color:var(--muted)}.filterRow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}.actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}.actions button{padding:8px 10px;border-radius:10px;border:none;background:#f1f5f9;font-size:12px;font-weight:800}.danger{color:var(--red)}
-.bottomNav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(430px,100%);background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:8px 10px 18px;z-index:20}.navItem{border:none;background:transparent;color:#64748b;font-size:12px;font-weight:750;display:flex;flex-direction:column;gap:4px;align-items:center}.navItem span{font-size:20px}.navItem.active{color:var(--blue)}.fab{position:fixed;left:50%;bottom:44px;transform:translateX(-50%);width:58px;height:58px;border-radius:50%;border:none;background:var(--blue);color:#fff;font-size:34px;box-shadow:0 10px 28px rgba(37,99,235,.35);z-index:25}.modal{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:flex-end;justify-content:center;z-index:50}.modal.show{display:flex}.sheet{width:min(430px,100%);background:#fff;border-radius:26px 26px 0 0;padding:20px;max-height:86vh;overflow:auto}.sheetHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.closeBtn{border:none;background:#f1f5f9;border-radius:12px;width:36px;height:36px;font-size:20px}.mutedLink{color:var(--blue);font-weight:800;background:transparent;border:none}.nowrap{white-space:nowrap}
+:root{--bg:#070b10;--card:#121922;--line:#253044;--text:#f6f8fb;--muted:#8d99aa;--purple:#8b5cf6;--green:#22c55e;--red:#ef4444;--amber:#f59e0b;--blue:#3b82f6;--shadow:0 18px 55px rgba(0,0,0,.32)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}html,body{background:#000;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Arial,sans-serif}body{max-width:430px;margin:auto;min-height:100vh;background:linear-gradient(180deg,#070b10,#0b1017);padding:18px 14px 96px}button,input,select,textarea{font-family:inherit}button{cursor:pointer}.topbar{display:flex;align-items:center;justify-content:space-between;margin:4px 0 18px}.iconBtn{width:42px;height:42px;border-radius:16px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.06);color:#fff;font-size:22px;display:grid;place-items:center}.greeting h1{font-size:21px;font-weight:850}.greeting p{font-size:12px;color:var(--muted);margin-top:5px}.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}.tab{background:#121821;color:#7f8b9d;border:1px solid rgba(255,255,255,.05);border-radius:16px;padding:11px 6px;font-size:12px;font-weight:800}.tab.active{background:linear-gradient(135deg,var(--purple),#5b21b6);color:#fff;box-shadow:0 10px 28px rgba(139,92,246,.28)}.screen{display:none}.screen.active{display:block;animation:fade .18s ease}@keyframes fade{from{opacity:.25;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:16px;margin-bottom:12px;box-shadow:0 10px 32px rgba(0,0,0,.18)}.hero{background:radial-gradient(circle at 86% 16%,rgba(139,92,246,.36),transparent 32%),linear-gradient(145deg,#111827,#11131a 60%,#0b1018);min-height:148px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;right:-44px;top:-34px;width:170px;height:170px;border-radius:50%;background:rgba(139,92,246,.10)}.label{font-size:11px;letter-spacing:.7px;text-transform:uppercase;font-weight:850;color:#d2d8e3;opacity:.9}.muted{color:var(--muted)}.big{font-size:42px;font-weight:900;letter-spacing:-1.4px;line-height:1;margin:14px 0 8px}.green{color:var(--green)}.red{color:var(--red)}.purple{color:var(--purple)}.amber{color:var(--amber)}.sub{font-size:14px;color:#d4dae6;font-weight:650;margin-top:5px}.sub.muted{font-weight:600;color:var(--muted)}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.kpi{min-height:126px;display:flex;flex-direction:column;justify-content:center}.kpi.redbg{background:linear-gradient(180deg,rgba(239,68,68,.12),rgba(255,255,255,.035))}.kpi.greenbg{background:linear-gradient(180deg,rgba(34,197,94,.12),rgba(255,255,255,.035))}.kpi .amount{font-size:27px;font-weight:900;margin-top:10px}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.075)}.row:last-child{border-bottom:none}.rowLeft{display:flex;align-items:center;gap:11px;min-width:0}.rowTitle{font-weight:820;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rowSub{font-size:12px;color:var(--muted);margin-top:3px}.rowRight{text-align:right;font-weight:900;white-space:nowrap}.icon{width:34px;height:34px;border-radius:13px;display:grid;place-items:center;font-size:18px;flex:none}.icGreen{background:rgba(34,197,94,.18);color:#86efac}.icRed{background:rgba(239,68,68,.18);color:#fecaca}.icBlue{background:rgba(59,130,246,.18);color:#bfdbfe}.icPurple{background:rgba(139,92,246,.2);color:#ddd6fe}.icAmber{background:rgba(245,158,11,.18);color:#fde68a}.progress{height:7px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden;margin-top:7px}.progress span{height:100%;display:block;background:linear-gradient(90deg,var(--purple),#22c55e);border-radius:999px;width:0%}.sectionHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}.linkBtn{border:none;background:transparent;color:#a78bfa;font-weight:800;font-size:13px}.pill{display:inline-flex;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:6px 10px;font-size:12px;color:#cbd5e1;font-weight:800}.status{font-size:12px;color:#a7b0bf;margin-top:4px}.status.warn{color:#fbbf24}.status.bad{color:#fca5a5}.status.good{color:#86efac}.empty{color:var(--muted);font-size:14px;padding:10px 0}.note{font-size:12px;color:var(--muted);line-height:1.4}.bottomNav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);background:rgba(9,13,19,.92);backdrop-filter:blur(18px);border-top:1px solid rgba(255,255,255,.08);display:grid;grid-template-columns:repeat(4,1fr);padding:8px 12px calc(12px + env(safe-area-inset-bottom));z-index:20}.navItem{border:none;background:transparent;color:#6b7280;font-size:11px;font-weight:800;display:flex;flex-direction:column;align-items:center;gap:3px}.navItem span{font-size:20px}.navItem.active{color:var(--purple)}.fab{position:fixed;left:50%;bottom:45px;transform:translateX(-50%);z-index:25;width:58px;height:58px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--purple),#5b21b6);color:#fff;font-size:34px;box-shadow:0 16px 42px rgba(139,92,246,.42)}
+.view{display:none}.view.active{display:block}.viewHeader{display:flex;align-items:center;gap:12px;margin:4px 0 16px}.back{width:38px;height:38px;border-radius:14px;border:none;background:rgba(255,255,255,.07);color:#fff;font-size:22px}.viewHeader h2{font-size:22px;font-weight:900}.stickyAction{position:sticky;bottom:10px;margin-top:16px;padding-top:8px;background:linear-gradient(180deg,rgba(7,11,16,0),#070b10 35%)}.formGroup{margin-bottom:12px}label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.55px;color:#9aa5b5;font-weight:900;margin-bottom:6px}input,select,textarea{width:100%;border:1px solid rgba(255,255,255,.1);background:#0d131b;color:#fff;border-radius:14px;padding:13px 14px;font-size:16px;outline:none}textarea{min-height:80px;resize:vertical}.primary{width:100%;border:none;border-radius:16px;background:linear-gradient(135deg,var(--purple),#6d28d9);color:#fff;padding:15px 16px;font-weight:900;font-size:16px}.secondary{width:100%;border:1px solid rgba(255,255,255,.1);border-radius:16px;background:rgba(255,255,255,.06);color:#fff;padding:14px 16px;font-weight:900}.danger{background:rgba(239,68,68,.15);color:#fecaca;border:1px solid rgba(239,68,68,.22)}.btnGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.seg button{border:none;border-radius:13px;background:rgba(255,255,255,.06);color:#9aa5b5;padding:10px 6px;font-weight:900}.seg button.active{background:rgba(139,92,246,.25);color:#fff}.hidden{display:none!important}.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:92px;background:#101827;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:14px;padding:10px 14px;font-weight:800;z-index:80;display:none}.toast.show{display:block;animation:fade .15s}
 </style>
 </head>
 <body>
-<div class="header"><button class="iconBtn" type="button">☰</button><h1 id="pageTitle">Inicio</h1><button class="iconBtn" type="button" onclick="goTab('config')">⚙︎</button></div>
-<div class="tabs"><button class="tab active" data-tab="inicio" type="button">Inicio</button><button class="tab" data-tab="movimientos" type="button">Movimientos</button><button class="tab" data-tab="historial" type="button">Historial</button><button class="tab" data-tab="config" type="button">Config</button></div>
-<section id="inicio" class="screen active">
-  <div class="card hero"><div class="title">Saldo actual</div><div class="big" id="saldoActual">$0</div><div class="subline" id="proximaQuincena">Próxima quincena: $0</div><div class="subline" id="sueldoMensual">Sueldo mensual: $0</div></div>
-  <div class="grid2"><div class="card kpi red"><div class="title redText">A pagar</div><div class="amount redText" id="aPagar">$0</div><div class="subline">Compromisos del mes</div></div><div class="card kpi green"><div class="title greenText">Saldo disponible</div><div class="amount greenText" id="saldoDisponible">$0</div><div class="subline">Dinero libre para usar</div></div></div>
-  <div class="card" style="background:var(--greenSoft)"><div class="title greenText">Ahorro</div><div class="amount greenText" id="ahorroTotal">$0</div><div class="subline">Abonos acumulados</div></div>
-  <div class="card"><div class="title">Gastos</div><div class="amount purpleText" id="gastosMes">-$0</div><div class="subline">Total acumulado</div></div>
-  <div class="card"><div class="title">Gastos por categoría</div><div id="categoriasHome"></div></div>
-  <div class="grid2"><div class="card"><div class="title">Tarjetas por pagar</div><div id="tarjetasHome"></div><button class="btn soft" style="margin-top:10px" type="button" onclick="openAddCard()">+ Agregar tarjeta</button></div><div class="card"><div class="title">Gastos fijos</div><div id="fijosHome"></div><button class="btn soft" style="margin-top:10px" type="button" onclick="openAddFixed()">+ Agregar gasto fijo</button></div></div>
-</section>
-<section id="movimientos" class="screen"><div class="filterRow"><select id="filterType" onchange="renderAll()"><option value="todos">Todos</option><option value="ingreso">Ingresos</option><option value="egreso">Egresos</option><option value="tc">Tarjeta crédito</option></select><select id="filterCat" onchange="renderAll()"><option value="todas">Todas las categorías</option></select></div><div class="card"><div class="title">Movimientos</div><div id="movList"></div></div></section>
-<section id="historial" class="screen"><div class="grid2"><div class="card"><div class="title">Gasto actual</div><div class="amount" id="histGasto">$0</div></div><div class="card"><div class="title">Diferencia</div><div class="amount" id="histDiff">$0</div></div></div><div class="card"><div class="title">Top categoría</div><div class="amount" id="histTop">—</div><div class="pill" id="histInsight">Estable</div></div><div class="card"><div class="title">Comparativo mensual</div><div id="comparativoMensual"></div></div><div class="card"><div class="title">Acumulado por categoría</div><div id="histCategorias"></div></div></section>
-<section id="config" class="screen">
-  <div class="card"><div class="title">Sueldo fijo quincenal</div><div class="inputGroup"><label>Monto por quincena</label><input id="salaryAmount" inputmode="decimal" placeholder="18,052" oninput="moneyInput(this)"></div><button class="btn black" style="margin-top:12px" type="button" onclick="saveSalary()">Guardar sueldo</button><div id="salarySaved" class="subline"></div></div>
-  <div class="card"><div class="title">Ingresos adicionales</div><div class="inputGroup"><label>Fecha</label><input id="extraDate" type="date"></div><div class="inputGroup"><label>Tipo</label><select id="extraType" onchange="toggleOther('extraType','extraOther')"><option>Aguinaldo</option><option>Prima vacacional</option><option>PTU</option><option>Impuestos (SAT)</option><option>Ventas / Comisiones</option><option>Otro</option></select></div><div class="inputGroup hidden" id="extraOther"><label>¿Cuál ingreso?</label><input id="extraOtherText" placeholder="Ej. Reembolso"></div><div class="inputGroup"><label>Importe</label><input id="extraAmount" inputmode="decimal" placeholder="3,000" oninput="moneyInput(this)"></div><button class="btn black" style="margin-top:12px" type="button" onclick="addExtraIncome()">Guardar ingreso</button></div>
-  <div class="card"><div class="title">Tarjetas de crédito</div><div id="cardsConfig"></div><button class="btn soft" style="margin-top:10px" type="button" onclick="openAddCard()">+ Agregar tarjeta</button></div>
-  <div class="card"><div class="title">Gastos fijos</div><div id="fixedConfig"></div><button class="btn soft" style="margin-top:10px" type="button" onclick="openAddFixed()">+ Agregar gasto fijo</button></div>
-  <div class="card"><div class="title">Préstamos</div><div id="loansConfig"></div><button class="btn soft" style="margin-top:10px" type="button" onclick="openAddLoan()">+ Agregar préstamo</button></div>
-  <div class="card"><div class="title">Ahorro</div><div id="savingConfig"></div><button class="btn soft" style="margin-top:10px" type="button" onclick="openAddSaving()">+ Registrar abono</button></div>
-  <div class="card"><div class="title">Eliminar datos registrados</div><button class="btn red" type="button" onclick="resetData()">Eliminar datos registrados</button></div>
-</section>
-<button class="fab" type="button" onclick="openAddMovement()">+</button>
-<div class="bottomNav"><button class="navItem active" data-tab="inicio" type="button"><span>⌂</span>Inicio</button><button class="navItem" data-tab="movimientos" type="button"><span>☷</span>Movimientos</button><button class="navItem" data-tab="historial" type="button"><span>▣</span>Historial</button><button class="navItem" data-tab="config" type="button"><span>•••</span>Más</button></div>
-<div class="modal" id="modal"><div class="sheet"><div class="sheetHead"><h2 id="modalTitle">Agregar</h2><button class="closeBtn" type="button" onclick="closeModal()">×</button></div><div id="modalBody"></div></div></div>
+<div id="mainApp">
+  <div class="topbar"><button class="iconBtn" onclick="openView('settingsView')">☰</button><div class="greeting"><h1>Hola Karen 👋</h1><p id="monthTitle">—</p></div><button class="iconBtn" onclick="openView('settingsView')">⚙︎</button></div>
+  <div class="tabs"><button class="tab active" data-tab="home">Inicio</button><button class="tab" data-tab="moves">Movimientos</button><button class="tab" data-tab="pay">A pagar</button><button class="tab" data-tab="history">Historial</button></div>
+    <section id="home" class="screen active">
+    <div class="card hero">
+      <div class="label">Saldo actual</div>
+      <div class="big" id="saldoActual">$0.00</div>
+      <div class="sub" id="nextIncome">Próximo ingreso: $0.00</div>
+      <div class="sub muted" id="monthlyIncome">Sueldo mensual: $0.00</div>
+    </div>
+
+    <div class="grid2">
+      <div class="card kpi redbg">
+        <div class="label red">A pagar</div>
+        <div class="amount red" id="aPagar">$0.00</div>
+        <div class="status" id="payStatus">Sin pendientes</div>
+      </div>
+
+      <div class="card kpi greenbg">
+        <div class="label green">Saldo disponible</div>
+        <div class="amount green" id="saldoDisponible">$0.00</div>
+        <div class="status" id="dispStatus">Dinero libre</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sectionHead">
+        <div class="label">Ahorro</div>
+        <button class="linkBtn" onclick="openView('savingView')">Ver</button>
+      </div>
+      <div class="big green" style="font-size:32px" id="savingTotal">$0.00</div>
+      <div class="sub muted">Caja independiente</div>
+    </div>
+
+    <div class="card">
+      <div class="sectionHead">
+        <div class="label">Tarjetas de crédito</div>
+        <button class="linkBtn" onclick="openView('cardsView')">Administrar</button>
+      </div>
+      <div id="cardsHome"></div>
+    </div>
+
+    <div class="card">
+      <div class="sectionHead">
+        <div class="label">Gastos fijos</div>
+        <button class="linkBtn" onclick="openView('fixedView')">Ver todos</button>
+      </div>
+      <div id="fixedHome"></div>
+    </div>
+  </section>
+
+  <section id="moves" class="screen">
+    <div class="card">
+      <div class="sectionHead">
+        <div class="label">Movimientos</div>
+        <button class="linkBtn" onclick="openView('addMoveView')">+ Nuevo</button>
+      </div>
+      <div id="movesList"></div>
+    </div>
+  </section>
+
+  <section id="pay" class="screen">
+    <div class="card">
+      <div class="label">Compromisos reales</div>
+      <div class="big red" style="font-size:34px" id="payTotal">$0.00</div>
+      <div class="sub muted">Obligaciones pendientes</div>
+    </div>
+
+    <div class="card">
+      <div id="payList"></div>
+    </div>
+  </section>
+
+  <section id="history" class="screen">
+    <div class="grid2">
+      <div class="card">
+        <div class="label">Mes actual</div>
+        <div class="big" style="font-size:28px" id="monthSpend">$0.00</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Variación vs mes anterior</div>
+        <div class="big" style="font-size:28px" id="variation">$0.00</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="label">Resumen</div>
+      <div id="historyList"></div>
+    </div>
+  </section>
+
+  <button class="fab" onclick="openView('addMoveView')">+</button>
+
+  <div class="bottomNav">
+    <button class="navItem active" data-tab="home"><span>⌂</span>Inicio</button>
+    <button class="navItem" data-tab="moves"><span>☷</span>Movs</button>
+    <button class="navItem" data-tab="pay"><span>💳</span>Pagar</button>
+    <button class="navItem" data-tab="history"><span>▣</span>Historial</button>
+  </div>
+</div>
+<div id="views">
+
+  <section id="addMoveView" class="view">
+    <div class="viewHeader">
+      <button class="back" onclick="closeViews()">←</button>
+      <h2>Registrar movimiento</h2>
+    </div>
+
+    <div class="card">
+      <div class="seg">
+        <button class="mvType active" data-type="expense">Gasto</button>
+        <button class="mvType" data-type="income">Ingreso</button>
+        <button class="mvType" data-type="saving">Ahorro</button>
+      </div>
+
+      <div class="formGroup">
+        <label>Concepto</label>
+        <input id="mvConcept" placeholder="Ej. Supermercado" />
+      </div>
+
+      <div class="formGroup">
+        <label>Importe</label>
+        <input id="mvAmount" type="number" step="0.01" placeholder="0.00" />
+      </div>
+
+      <div class="formGroup">
+        <label>Fecha real</label>
+        <input id="mvDate" type="date" />
+      </div>
+
+      <div id="expenseExtra">
+        <div class="formGroup">
+          <label>Método</label>
+          <select id="payMethod">
+            <option value="cash">Cuenta / Débito</option>
+            <option value="card">Tarjeta de crédito</option>
+          </select>
+        </div>
+
+        <div class="formGroup hidden" id="cardWrap">
+          <label>Tarjeta</label>
+          <select id="cardSelect"></select>
+        </div>
+      </div>
+
+      <div class="stickyAction">
+        <button class="primary" onclick="saveMovement()">Guardar cambios</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="savingView" class="view">
+    <div class="viewHeader">
+      <button class="back" onclick="closeViews()">←</button>
+      <h2>Ahorro</h2>
+    </div>
+
+    <div class="card">
+      <div class="label">Total actual</div>
+      <div class="big green" style="font-size:36px" id="savingViewTotal">$0.00</div>
+      <div class="btnGrid" style="margin-top:12px">
+        <button class="secondary" onclick="openSavingAction('deposit')">Ahorrar</button>
+        <button class="secondary" onclick="openSavingAction('withdraw')">Retirar</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="label">Historial</div>
+      <div id="savingList"></div>
+    </div>
+  </section>
+
+  <section id="cardsView" class="view">
+    <div class="viewHeader">
+      <button class="back" onclick="closeViews()">←</button>
+      <h2>Tarjetas</h2>
+    </div>
+
+    <div class="card">
+      <div id="cardsAdmin"></div>
+      <div class="stickyAction">
+        <button class="primary" onclick="openCardForm()">Agregar tarjeta</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="fixedView" class="view">
+    <div class="viewHeader">
+      <button class="back" onclick="closeViews()">←</button>
+      <h2>Gastos fijos</h2>
+    </div>
+
+    <div class="card">
+      <div id="fixedAdmin"></div>
+      <div class="stickyAction">
+        <button class="primary" onclick="openFixedForm()">Agregar gasto fijo</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="settingsView" class="view">
+    <div class="viewHeader">
+      <button class="back" onclick="closeViews()">←</button>
+      <h2>Configuración</h2>
+    </div>
+
+    <div class="card">
+      <div class="formGroup">
+        <label>Sueldo quincenal</label>
+        <input id="salaryInput" type="number" step="0.01" placeholder="0.00" />
+      </div>
+
+      <div class="stickyAction">
+        <button class="primary" onclick="saveSalary()">Guardar cambios</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-const KEY='finanzas-v4-premium-final';
-const cats=['Antojos','Vacaciones','Plataformas','Ropa','Deporte','Despensa','Uber','Comida','Transporte','Ocio','Hogar','Salud','Otro'];
-const monthNames=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-const today=new Date(); const currentKey=mk(today); const lastKey=mk(new Date(today.getFullYear(),today.getMonth()-1,1));
-let S=load();
-function blank(){return {salary:0,extraIncomes:[],movements:[],cards:[],cardPayments:[],fixed:[],fixedMonthly:{},loans:[],loanLogs:[],savings:[]}}
-function load(){try{return {...blank(),...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){return blank()}}
-function save(){localStorage.setItem(KEY,JSON.stringify(S))}
-function mk(d){d=new Date(d);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`}
-function fm(n){n=Number(n||0);let sign=n<0?'-':'';return `${sign}$${Math.abs(n).toLocaleString('es-MX',{maximumFractionDigits:2})}`}
-function parseMoney(v){return Number(String(v||'').replace(/,/g,'').replace(/[^\d.]/g,''))||0}
-function moneyInput(el){let v=String(el.value).replace(/,/g,'').replace(/[^\d.]/g,''); if(v===''){el.value='';return} let p=v.split('.'); let int=p[0]||'0'; let dec=p[1]?'.'+p[1].slice(0,2):''; el.value=Number(int).toLocaleString('es-MX')+dec}
-function uid(){return Date.now()+Math.floor(Math.random()*999)}
-function dateVal(id){return document.getElementById(id).value || new Date().toISOString().slice(0,10)}
-function toggleOther(selectId,boxId){document.getElementById(boxId).classList.toggle('hidden',document.getElementById(selectId).value!=='Otro')}
-document.querySelectorAll('.tab,.navItem').forEach(b=>b.addEventListener('click',()=>goTab(b.dataset.tab)));
-function goTab(id){document.querySelectorAll('.tab,.navItem').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.getElementById('pageTitle').textContent=id==='inicio'?'Inicio':id==='movimientos'?'Movimientos':id==='historial'?'Historial':'Config';renderAll()}
-function closeModal(){document.getElementById('modal').classList.remove('show')}
-function openModal(title,html){document.getElementById('modalTitle').textContent=title;document.getElementById('modalBody').innerHTML=html;document.getElementById('modal').classList.add('show')}
-function cardById(id){return S.cards.find(c=>c.id===Number(id))}
-function saveSalary(){S.salary=parseMoney(document.getElementById('salaryAmount').value);document.getElementById('salaryAmount').value='';save();renderAll()}
-function addExtraIncome(){const type=document.getElementById('extraType').value==='Otro'?(document.getElementById('extraOtherText').value||'Otro'):document.getElementById('extraType').value;const amount=parseMoney(document.getElementById('extraAmount').value);if(!amount)return;S.extraIncomes.unshift({id:uid(),type,amount,date:dateVal('extraDate')});['extraAmount','extraOtherText','extraDate'].forEach(id=>document.getElementById(id).value='');save();renderAll()}
-function openAddMovement(editId){const m=editId?S.movements.find(x=>x.id===editId):null; const cardOptions=S.cards.map(c=>`<option value="${c.id}" ${m&&m.cardId===c.id?'selected':''}>${c.name}</option>`).join('');openModal(editId?'Editar movimiento':'Agregar movimiento',`
-<div class="inputGroup"><label>Tipo</label><select id="mvType" onchange="toggleMovementType()"><option value="gasto" ${!m||m.type!=='ingreso'?'selected':''}>Gasto</option><option value="ingreso" ${m&&m.type==='ingreso'?'selected':''}>Ingreso</option></select></div>
-<div id="expenseFields"><div class="inputGroup"><label>Fecha</label><input id="mvDate" type="date" value="${m?.date||''}"></div><div class="inputGroup"><label>Concepto</label><input id="mvConcept" value="${m?.concept||''}" placeholder="Ej. Uber"></div><div class="inputGroup"><label>Importe</label><input id="mvAmount" inputmode="decimal" oninput="moneyInput(this)" value="${m?.amount?Number(m.amount).toLocaleString('es-MX'):''}"></div><div class="inputGroup"><label>Categoría</label><select id="mvCat">${cats.map(c=>`<option ${m&&m.cat===c?'selected':''}>${c}</option>`).join('')}</select></div><div class="inputGroup"><label>Método de pago</label><select id="payMethod" onchange="togglePayMethod()"><option ${m&&m.method==='Débito'?'selected':''}>Débito</option><option ${m&&m.method==='Efectivo'?'selected':''}>Efectivo</option><option ${m&&m.method==='Transferencia'?'selected':''}>Transferencia</option><option ${m&&m.method==='Tarjeta de crédito'?'selected':''}>Tarjeta de crédito</option></select></div><div class="inputGroup ${m&&m.method==='Tarjeta de crédito'?'':'hidden'}" id="tcBox"><label>Tarjeta</label><select id="mvCard">${cardOptions||'<option value="">Sin tarjetas</option>'}</select></div><div class="inputGroup"><label>Tipo de pago</label><select id="paymentType" onchange="toggleInstallments()"><option value="una" ${!m||m.paymentType!=='meses'?'selected':''}>Una exhibición</option><option value="meses" ${m&&m.paymentType==='meses'?'selected':''}>A meses</option></select></div><div id="installBox" class="${m&&m.paymentType==='meses'?'':'hidden'}"><div class="inputGroup"><label>Meses</label><input id="instMonths" type="number" value="${m?.months||''}"></div><div class="inputGroup"><label>Fecha inicio</label><input id="instStart" type="date" value="${m?.start||''}"></div></div></div>
-<div id="incomeFields" class="hidden"><div class="inputGroup"><label>Fecha</label><input id="mvIncDate" type="date" value="${m?.date||''}"></div><div class="inputGroup"><label>Concepto</label><input id="mvIncConcept" value="${m?.concept||''}" placeholder="Ej. Reembolso"></div><div class="inputGroup"><label>Importe</label><input id="mvIncAmount" inputmode="decimal" oninput="moneyInput(this)" value="${m?.amount?Number(m.amount).toLocaleString('es-MX'):''}"></div></div>
-<button class="btn primary" style="margin-top:14px" onclick="saveMovement(${editId||0})">Guardar</button>`); toggleMovementType(); togglePayMethod(); toggleInstallments()}
-function toggleMovementType(){const isInc=document.getElementById('mvType').value==='ingreso';document.getElementById('expenseFields').classList.toggle('hidden',isInc);document.getElementById('incomeFields').classList.toggle('hidden',!isInc)}
-function togglePayMethod(){document.getElementById('tcBox').classList.toggle('hidden',document.getElementById('payMethod').value!=='Tarjeta de crédito')}
-function toggleInstallments(){document.getElementById('installBox').classList.toggle('hidden',document.getElementById('paymentType').value!=='meses')}
-function cardDueKey(card,date){if(!card)return currentKey;const d=new Date(date);return mk(new Date(d.getFullYear(),d.getMonth()+(d.getDate()>Number(card.cut)?2:1),1))}
-function saveMovement(editId){const type=document.getElementById('mvType').value;let obj;if(type==='ingreso'){const amount=parseMoney(document.getElementById('mvIncAmount').value);if(!amount)return;obj={id:editId||uid(),type:'ingreso',concept:document.getElementById('mvIncConcept').value||'Ingreso',amount,date:dateVal('mvIncDate'),cat:'Ingreso'}}else{const amount=parseMoney(document.getElementById('mvAmount').value);if(!amount)return;const method=document.getElementById('payMethod').value;const paymentType=document.getElementById('paymentType').value;obj={id:editId||uid(),type:'gasto',concept:document.getElementById('mvConcept').value||'Gasto',amount,date:dateVal('mvDate'),cat:document.getElementById('mvCat').value,method,paymentType};if(method==='Tarjeta de crédito'){obj.cardId=Number(document.getElementById('mvCard').value);obj.dueKey=cardDueKey(cardById(obj.cardId),obj.date)}if(paymentType==='meses'){obj.months=Number(document.getElementById('instMonths').value||1);obj.start=dateVal('instStart');obj.monthly=amount/obj.months}}
-if(editId){S.movements=S.movements.map(x=>x.id===editId?obj:x)}else S.movements.unshift(obj);save();closeModal();renderAll()}
-function openAddCard(editId){const c=editId?cardById(editId):{};openModal(editId?'Editar tarjeta':'Agregar tarjeta',`<div class="inputGroup"><label>Nombre</label><input id="cardName" value="${c.name||''}"></div><div class="inputGroup"><label>Línea total</label><input id="cardLimit" inputmode="decimal" oninput="moneyInput(this)" value="${c.limit?Number(c.limit).toLocaleString('es-MX'):''}"></div><div class="inputGroup"><label>Línea disponible actual</label><input id="cardAvail" inputmode="decimal" oninput="moneyInput(this)" value="${c.available?Number(c.available).toLocaleString('es-MX'):''}"></div><div class="inputGroup"><label>Corte</label><input id="cardCut" type="number" value="${c.cut||''}" placeholder="18"></div><div class="inputGroup"><label>Pago</label><input id="cardPay" type="number" value="${c.pay||''}" placeholder="8"></div><button class="btn primary" style="margin-top:14px" onclick="saveCard(${editId||0})">Guardar tarjeta</button>`)}
-function saveCard(id){const data={name:document.getElementById('cardName').value||'Tarjeta',limit:parseMoney(document.getElementById('cardLimit').value),available:parseMoney(document.getElementById('cardAvail').value),cut:Number(document.getElementById('cardCut').value),pay:Number(document.getElementById('cardPay').value)};if(id)Object.assign(cardById(id),data);else S.cards.push({id:uid(),...data});save();closeModal();renderAll()}
-function openCardPayment(cardId){const c=cardById(cardId);openModal('Registrar pago',`<div class="inputGroup"><label>Tarjeta</label><input value="${c?.name||''}" disabled></div><div class="inputGroup"><label>Fecha</label><input id="payDate" type="date"></div><div class="inputGroup"><label>Pago realizado</label><input id="payAmount" inputmode="decimal" oninput="moneyInput(this)"></div><div class="inputGroup"><label>Adeudo actualizado</label><input id="payDebt" inputmode="decimal" oninput="moneyInput(this)"></div><div class="inputGroup"><label>Línea disponible actual</label><input id="payAvail" inputmode="decimal" oninput="moneyInput(this)"></div><button class="btn primary" style="margin-top:14px" onclick="saveCardPayment(${cardId})">Guardar pago</button>`)}
-function saveCardPayment(cardId){const amount=parseMoney(document.getElementById('payAmount').value);const avail=parseMoney(document.getElementById('payAvail').value);const debt=parseMoney(document.getElementById('payDebt').value);const date=dateVal('payDate');const card=cardById(cardId);if(card)card.available=avail;S.cardPayments.unshift({id:uid(),cardId,amount,debt,available:avail,date,dueKey:currentKey});S.movements.unshift({id:uid(),type:'egreso',concept:`Pago ${card?.name||'tarjeta'}`,amount,date,cat:'Pago TC',method:'Tarjeta de crédito'});save();closeModal();renderAll()}
-function openAddFixed(editId){const f=editId?S.fixed.find(x=>x.id===editId):{};openModal(editId?'Editar gasto fijo':'Agregar gasto fijo',`<div class="inputGroup"><label>Categoría</label><select id="fixedCat" onchange="toggleOther('fixedCat','fixedOther')"><option ${f.cat==='Hogar'?'selected':''}>Hogar</option><option ${f.cat==='Plataformas'?'selected':''}>Plataformas</option><option ${f.cat==='Salud'?'selected':''}>Salud</option><option ${f.cat==='Transporte'?'selected':''}>Transporte</option><option ${f.cat==='Despensa'?'selected':''}>Despensa</option><option ${f.cat==='Uber'?'selected':''}>Uber</option><option ${f.cat==='Otro'?'selected':''}>Otro</option></select></div><div class="inputGroup ${f.cat==='Otro'?'':'hidden'}" id="fixedOther"><label>¿Cuál gasto fijo?</label><input id="fixedNameOther" value="${f.name||''}"></div><div class="inputGroup"><label>Concepto</label><input id="fixedName" value="${f.cat==='Otro'?'':(f.name||'')}"></div><div class="inputGroup"><label>Día de pago</label><input id="fixedDay" type="number" value="${f.day||''}" placeholder="5"></div><button class="btn primary" style="margin-top:14px" onclick="saveFixed(${editId||0})">Guardar gasto fijo</button>`)}
-function saveFixed(id){const cat=document.getElementById('fixedCat').value;const name=cat==='Otro'?(document.getElementById('fixedNameOther').value||'Otro'):(document.getElementById('fixedName').value||cat);const day=Number(document.getElementById('fixedDay').value||1);if(id)Object.assign(S.fixed.find(x=>x.id===id),{cat,name,day});else{const exists=S.fixed.find(x=>x.name.toLowerCase()===name.toLowerCase());if(exists)Object.assign(exists,{cat,name,day});else S.fixed.push({id:uid(),cat,name,day,lastAmount:0})}save();closeModal();renderAll()}
-function confirmFixed(id){openModal('Confirmar gasto fijo',`<div class="inputGroup"><label>Fecha</label><input id="fixPayDate" type="date"></div><div class="inputGroup"><label>Importe real</label><input id="fixPayAmount" inputmode="decimal" oninput="moneyInput(this)"></div><button class="btn primary" style="margin-top:14px" onclick="saveFixedMonth(${id},'Pagado')">Guardar pago</button><button class="btn soft" style="margin-top:10px" onclick="saveFixedMonth(${id},'No aplica')">No aplica</button>`)}
-function saveFixedMonth(id,status){const amount=status==='Pagado'?parseMoney(document.getElementById('fixPayAmount').value):0;S.fixedMonthly[currentKey]=S.fixedMonthly[currentKey]||{};S.fixedMonthly[currentKey][id]={status,amount,date:dateVal('fixPayDate')};const f=S.fixed.find(x=>x.id===id);if(f&&amount)f.lastAmount=amount;if(status==='Pagado')S.movements.unshift({id:uid(),type:'egreso',concept:f?.name||'Gasto fijo',amount,date:dateVal('fixPayDate'),cat:f?.cat||'Gasto fijo',method:'Fijo'});save();closeModal();renderAll()}
-function openAddLoan(editId){const l=editId?S.loans.find(x=>x.id===editId):{};openModal(editId?'Editar préstamo':'Agregar préstamo',`<div class="inputGroup"><label>Nombre</label><input id="loanName" value="${l.name||''}"></div><div class="inputGroup"><label>Saldo pendiente</label><input id="loanBalance" inputmode="decimal" oninput="moneyInput(this)" value="${l.balance?Number(l.balance).toLocaleString('es-MX'):''}"></div><button class="btn primary" style="margin-top:14px" onclick="saveLoan(${editId||0})">Guardar préstamo</button>`)}
-function saveLoan(id){const data={name:document.getElementById('loanName').value||'Préstamo',balance:parseMoney(document.getElementById('loanBalance').value)};if(id)Object.assign(S.loans.find(x=>x.id===id),data);else S.loans.push({id:uid(),...data});save();closeModal();renderAll()}
-function openLoanPayment(id){openModal('Actualizar préstamo',`<div class="inputGroup"><label>Fecha</label><input id="loanPayDate" type="date"></div><div class="inputGroup"><label>Abono a capital</label><input id="loanPayAmount" inputmode="decimal" oninput="moneyInput(this)"></div><div class="inputGroup"><label>Saldo pendiente</label><input id="loanPayBalance" inputmode="decimal" oninput="moneyInput(this)"></div><button class="btn primary" style="margin-top:14px" onclick="saveLoanPayment(${id})">Guardar</button>`)}
-function saveLoanPayment(id){const l=S.loans.find(x=>x.id===id);const amount=parseMoney(document.getElementById('loanPayAmount').value);const balance=parseMoney(document.getElementById('loanPayBalance').value);const date=dateVal('loanPayDate');if(l)l.balance=balance;S.loanLogs.unshift({id:uid(),loanId:id,amount,balance,date});S.movements.unshift({id:uid(),type:'egreso',concept:`Abono ${l?.name||'préstamo'}`,amount,date,cat:'Préstamo',method:'Transferencia'});save();closeModal();renderAll()}
-function openAddSaving(){openModal('Registrar ahorro',`<div class="inputGroup"><label>Fecha</label><input id="savDate" type="date"></div><div class="inputGroup"><label>Concepto</label><input id="savName" placeholder="Ahorro general"></div><div class="inputGroup"><label>Importe</label><input id="savAmount" inputmode="decimal" oninput="moneyInput(this)"></div><button class="btn primary" style="margin-top:14px" onclick="saveSaving()">Guardar ahorro</button>`)}
-function saveSaving(){const amount=parseMoney(document.getElementById('savAmount').value);if(!amount)return;S.savings.unshift({id:uid(),name:document.getElementById('savName').value||'Ahorro',amount,date:dateVal('savDate')});save();closeModal();renderAll()}
-function deleteItem(type,id){if(!confirm('¿Eliminar registro?'))return;S[type]=S[type].filter(x=>x.id!==id);save();renderAll()}
-function deleteMovement(id){if(!confirm('¿Eliminar movimiento?'))return;S.movements=S.movements.filter(x=>x.id!==id);save();renderAll()}
-function resetData(){if(!confirm('¿Eliminar datos registrados?'))return;S=blank();save();renderAll()}
-function salaryMonth(){return Number(S.salary||0)*2} function salaryNow(){return Number(S.salary||0)} function extraIncomeMonth(){return S.extraIncomes.filter(x=>mk(x.date)===currentKey).reduce((a,b)=>a+b.amount,0)} function savingsTotal(){return S.savings.reduce((a,b)=>a+b.amount,0)}
-function isCashOut(x){return x.type==='egreso'||(x.type==='gasto'&&x.method!=='Tarjeta de crédito')} function cashOutMonth(){return S.movements.filter(x=>mk(x.date)===currentKey&&isCashOut(x)).reduce((a,b)=>a+b.amount,0)}
-function gastosConsumoMonth(){return S.movements.filter(x=>mk(x.date)===currentKey&&x.type==='gasto').reduce((a,b)=>a+(b.paymentType==='meses'?(b.monthly||0):b.amount),0)}
-function installmentDue(x,key){if(!x.start||!x.months)return 0;const s=new Date(x.start);const [yy,mm]=key.split('-').map(Number);const idx=(yy-s.getFullYear())*12+(mm-1-s.getMonth());return idx>=0&&idx<x.months?(x.monthly||0):0}
-function cardDue(cardId,key=currentKey){const charges=S.movements.filter(x=>x.cardId===cardId).reduce((a,b)=>a+(b.paymentType==='meses'?installmentDue(b,key):(b.dueKey===key?b.amount:0)),0);const pays=S.cardPayments.filter(p=>p.cardId===cardId&&p.dueKey===key).reduce((a,b)=>a+b.amount,0);return Math.max(0,charges-pays)}
-function fixedCommitments(){return S.fixed.reduce((sum,f)=>{const e=S.fixedMonthly[currentKey]?.[f.id]; if(e?.status==='No aplica'||e?.status==='Pagado')return sum; return sum+(f.lastAmount||0)},0)} function aPagarTotal(){return S.cards.reduce((a,c)=>a+cardDue(c.id),0)+fixedCommitments()} function saldoActual(){return salaryNow()+extraIncomeMonth()-cashOutMonth()} function saldoDisponible(){return saldoActual()-aPagarTotal()}
-function renderHome(){document.getElementById('saldoActual').textContent=fm(saldoActual());document.getElementById('proximaQuincena').textContent=`Próxima quincena: ${fm(S.salary||0)}`;document.getElementById('sueldoMensual').textContent=`Sueldo mensual: ${fm(salaryMonth())}`;document.getElementById('aPagar').textContent=fm(aPagarTotal());document.getElementById('saldoDisponible').textContent=fm(saldoDisponible());document.getElementById('ahorroTotal').textContent=fm(savingsTotal());document.getElementById('gastosMes').textContent='-'+fm(gastosConsumoMonth()).replace('$','$');const catMap={};S.movements.filter(x=>mk(x.date)===currentKey&&x.type==='gasto').forEach(x=>catMap[x.cat]=(catMap[x.cat]||0)+(x.paymentType==='meses'?(x.monthly||0):x.amount));const catsSorted=Object.entries(catMap).sort((a,b)=>b[1]-a[1]);document.getElementById('categoriasHome').innerHTML=catsSorted.length?catsSorted.map(([k,v])=>`<div class="row"><div><div class="rowMain">${k}</div><div class="progress"><span style="width:${Math.min(100,(v/(gastosConsumoMonth()||1))*100)}%"></span></div></div><div class="amountRight">-${fm(v).replace('$','$')}</div></div>`).join(''):'<div class="empty">Sin movimientos</div>';document.getElementById('tarjetasHome').innerHTML=S.cards.length?S.cards.map(c=>`<div class="row" onclick="openCardPayment(${c.id})"><div><div class="rowMain">${c.name}</div><div class="rowSub">Pago: ${c.pay} de cada mes</div></div><div class="amountRight redText">${fm(cardDue(c.id))}</div></div>`).join(''):'<div class="empty">Sin tarjetas</div>';document.getElementById('fijosHome').innerHTML=S.fixed.length?S.fixed.map(f=>{const e=S.fixedMonthly[currentKey]?.[f.id];const status=e?.status||'Pendiente';return `<div class="row"><div><div class="rowMain">${f.name}</div><div class="rowSub">Día ${f.day}</div></div><div class="amountRight" onclick="confirmFixed(${f.id})">${status}</div></div>`}).join(''):'<div class="empty">Sin gastos fijos</div>'}
-function renderMovements(){const type=document.getElementById('filterType').value;const cat=document.getElementById('filterCat').value;const all=[...S.movements,...S.extraIncomes.map(x=>({id:x.id,type:'ingreso',concept:x.type,amount:x.amount,date:x.date,cat:'Ingreso adicional',isExtra:true}))].sort((a,b)=>new Date(b.date)-new Date(a.date)).filter(x=>type==='todos'||(type==='ingreso'&&x.type==='ingreso')||(type==='egreso'&&x.type!=='ingreso')||(type==='tc'&&x.method==='Tarjeta de crédito')).filter(x=>cat==='todas'||x.cat===cat);document.getElementById('movList').innerHTML=all.length?all.map(x=>{const isIn=x.type==='ingreso';const sign=isIn?'+':'-';const cls=isIn?'greenText':'redText';const sub=x.paymentType==='meses'?`A meses · ${x.months} x ${fm(x.monthly)}`:(x.cat||'');const actions=x.isExtra?'':`<div class="actions"><button onclick="openAddMovement(${x.id})">Editar</button><button onclick="deleteMovement(${x.id})">Eliminar</button></div>`;return `<div class="row"><div><div class="rowMain">${x.concept}</div><div class="rowSub">${sub}</div>${actions}</div><div class="amountRight ${cls}">${sign}${fm(x.amount).replace('$','$')}</div></div>`}).join(''):'<div class="empty">Sin movimientos</div>'}
-function renderHistory(){const current=gastosConsumoMonth();const last=S.movements.filter(x=>mk(x.date)===lastKey&&x.type==='gasto').reduce((a,b)=>a+(b.paymentType==='meses'?(b.monthly||0):b.amount),0);const diff=current-last;document.getElementById('histGasto').textContent=fm(current);document.getElementById('histDiff').textContent=(diff>=0?'+':'-')+fm(Math.abs(diff)).replace('$','$');document.getElementById('histDiff').className='amount '+(diff>0?'redText':'greenText');const map={};S.movements.filter(x=>x.type==='gasto').forEach(x=>map[x.cat]=(map[x.cat]||0)+(x.paymentType==='meses'?(x.monthly||0):x.amount));const top=Object.entries(map).sort((a,b)=>b[1]-a[1])[0];document.getElementById('histTop').textContent=top?top[0]:'—';document.getElementById('histInsight').textContent=diff>0?'Incremento en gasto':diff<0?'Mayor ahorro':'Estable';document.getElementById('comparativoMensual').innerHTML=`<div class="row"><div>${monthNames[today.getMonth()]}</div><div class="amountRight">${fm(current)}</div></div><div class="row"><div>${monthNames[(today.getMonth()+11)%12]}</div><div class="amountRight">${fm(last)}</div></div>`;document.getElementById('histCategorias').innerHTML=Object.entries(map).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="row"><div>${k}</div><div class="amountRight">${fm(v)}</div></div>`).join('')||'<div class="empty">Sin datos</div>'}
-function renderConfig(){document.getElementById('salarySaved').textContent=S.salary?`Sueldo actual: ${fm(S.salary)} quincenal`:'';document.getElementById('cardsConfig').innerHTML=S.cards.map(c=>`<div class="row"><div><div class="rowMain">${c.name}</div><div class="rowSub">Corte: ${c.cut} de cada mes · Pago: ${c.pay} de cada mes</div><div class="rowSub">Disponible ${fm(c.available)} · Línea ${fm(c.limit)}</div></div><div class="actions"><button onclick="openAddCard(${c.id})">Editar</button><button onclick="deleteItem('cards',${c.id})">Eliminar</button></div></div>`).join('')||'<div class="empty">Sin tarjetas</div>';document.getElementById('fixedConfig').innerHTML=S.fixed.map(f=>`<div class="row"><div><div class="rowMain">${f.name}</div><div class="rowSub">${f.cat} · Día ${f.day}</div></div><div class="actions"><button onclick="openAddFixed(${f.id})">Editar</button><button onclick="deleteItem('fixed',${f.id})">Eliminar</button></div></div>`).join('')||'<div class="empty">Sin gastos fijos</div>';document.getElementById('loansConfig').innerHTML=S.loans.map(l=>`<div class="row"><div><div class="rowMain">${l.name}</div><div class="rowSub">Saldo pendiente ${fm(l.balance)}</div></div><div class="actions"><button onclick="openLoanPayment(${l.id})">Abono</button><button onclick="openAddLoan(${l.id})">Editar</button></div></div>`).join('')||'<div class="empty">Sin préstamos</div>';document.getElementById('savingConfig').innerHTML=S.savings.slice(0,5).map(s=>`<div class="row"><div><div class="rowMain">${s.name}</div><div class="rowSub">${s.date}</div></div><div class="amountRight greenText">${fm(s.amount)}</div></div>`).join('')||'<div class="empty">Sin ahorro</div>'}
-function renderFilters(){const sel=document.getElementById('filterCat');const current=sel.value;sel.innerHTML='<option value="todas">Todas las categorías</option>'+cats.map(c=>`<option>${c}</option>`).join('');sel.value=current||'todas'}
-function renderAll(){renderFilters();renderHome();renderMovements();renderHistory();renderConfig()} renderAll();
+const KEY='finanzas_v4_dark';
+let state={
+ salary:0,
+ saldo:0,
+ saving:0,
+ moves:[],
+ cards:[],
+ fixed:[]
+};
+
+function load(){
+ const raw=localStorage.getItem(KEY);
+ if(raw){state=JSON.parse(raw);}
+}
+
+function save(){
+ localStorage.setItem(KEY,JSON.stringify(state));
+}
+
+function money(n){
+ n=Number(n||0);
+ return n.toLocaleString('es-MX',{style:'currency',currency:'MXN'});
+}
+
+function todayISO(){
+ return new Date().toISOString().slice(0,10);
+}
+  function showToast(msg){
+ const t=document.getElementById('toast');
+ t.textContent=msg;
+ t.classList.add('show');
+ setTimeout(()=>t.classList.remove('show'),1600);
+}
+
+function currentMonthLabel(){
+ const d=new Date();
+ const meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+ return `${meses[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function openView(id){
+ document.getElementById('mainApp').style.display='none';
+ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+}
+
+function closeViews(){
+ document.getElementById('mainApp').style.display='block';
+ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+ render();
+}
+
+document.querySelectorAll('.tab,.navItem').forEach(btn=>{
+ btn.addEventListener('click',()=>{
+  const tab=btn.dataset.tab;
+  document.querySelectorAll('.tab,.navItem').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+  document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===tab));
+ });
+});
+
+let currentMoveType='expense';
+
+document.querySelectorAll('.mvType').forEach(btn=>{
+ btn.addEventListener('click',()=>{
+  currentMoveType=btn.dataset.type;
+  document.querySelectorAll('.mvType').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('expenseExtra').classList.toggle('hidden',currentMoveType!=='expense');
+ });
+});
+
+document.getElementById('payMethod').addEventListener('change',()=>{
+ document.getElementById('cardWrap').classList.toggle('hidden',document.getElementById('payMethod').value!=='card');
+});
+
+function saveSalary(){
+ const val=Number(document.getElementById('salaryInput').value||0);
+ state.salary=val;
+ if(!state.saldo) state.saldo=val;
+ save();
+ document.getElementById('salaryInput').value='';
+ showToast('Sueldo guardado');
+ render();
+ closeViews();
+}
+
+function saveMovement(){
+ const concept=document.getElementById('mvConcept').value.trim()||'Movimiento';
+ const amount=Number(document.getElementById('mvAmount').value||0);
+ const date=document.getElementById('mvDate').value||todayISO();
+ if(!amount){showToast('Agrega importe');return;}
+
+ const item={
+  id:Date.now(),
+  type:currentMoveType,
+  concept,
+  amount,
+  date,
+  method:document.getElementById('payMethod').value,
+  cardId:document.getElementById('cardSelect').value||null
+ };
+
+ if(currentMoveType==='income'){
+  state.saldo+=amount;
+ }
+
+ if(currentMoveType==='expense'){
+  if(item.method==='card'){
+   const card=state.cards.find(c=>String(c.id)===String(item.cardId));
+   if(card){
+    card.debt=Number(card.debt||0)+amount;
+   }
+  }else{
+   state.saldo-=amount;
+  }
+ }
+
+ if(currentMoveType==='saving'){
+  state.saving+=amount;
+ }
+
+ state.moves.unshift(item);
+ save();
+ clearMoveForm();
+ showToast('Movimiento guardado');
+ render();
+ closeViews();
+}
+
+function clearMoveForm(){
+ document.getElementById('mvConcept').value='';
+ document.getElementById('mvAmount').value='';
+ document.getElementById('mvDate').value='';
+}
+
+function openSavingAction(type){
+ const label=type==='deposit'?'Ahorrar':'Retirar';
+ const amount=prompt(`${label} importe:`);
+ if(amount===null)return;
+ const num=Number(amount||0);
+ if(!num)return;
+
+ if(type==='deposit'){
+  state.saving+=num;
+  state.moves.unshift({id:Date.now(),type:'saving',concept:'Ahorro',amount:num,date:todayISO()});
+ }else{
+  state.saving-=num;
+  state.moves.unshift({id:Date.now(),type:'saving_withdraw',concept:'(Retiro)',amount:num,date:todayISO()});
+ }
+
+ save();
+ render();
+ showToast('Ahorro actualizado');
+}
+
+function openCardForm(){
+ const name=prompt('Nombre de tarjeta:');
+ if(!name)return;
+ const limit=Number(prompt('Línea total:')||0);
+ const cut=Number(prompt('Día de corte:')||0);
+ const pay=Number(prompt('Día de pago:')||0);
+ state.cards.push({id:Date.now(),name,limit,cut,pay,debt:0});
+ save();
+ render();
+ showToast('Tarjeta agregada');
+}
+
+function payCard(id){
+ const card=state.cards.find(c=>c.id===id);
+ if(!card)return;
+ const amount=Number(prompt('Pago realizado:')||0);
+ if(!amount)return;
+ const newDebt=Number(prompt('Nuevo saldo pendiente:')||Math.max(0,card.debt-amount));
+ card.debt=newDebt;
+ state.saldo-=amount;
+ state.moves.unshift({id:Date.now(),type:'card_payment',concept:`Pago ${card.name}`,amount,date:todayISO()});
+ save();
+ render();
+ showToast('Pago registrado');
+}
+
+function openFixedForm(){
+ const name=prompt('Concepto:');
+ if(!name)return;
+ const amount=Number(prompt('Importe esperado:')||0);
+ const day=Number(prompt('Día de pago:')||0);
+ state.fixed.push({id:Date.now(),name,amount,day,paid:false});
+ save();
+ render();
+ showToast('Gasto fijo agregado');
+}
+
+function payFixed(id){
+ const fixed=state.fixed.find(f=>f.id===id);
+ if(!fixed)return;
+ const amount=Number(prompt('Importe real pagado:')||fixed.amount||0);
+ state.saldo-=amount;
+ fixed.paid=true;
+ fixed.lastPaid=todayISO();
+ state.moves.unshift({id:Date.now(),type:'fixed_payment',concept:`Pago fijo - ${fixed.name}`,amount,date:todayISO()});
+ save();
+ render();
+ showToast('Pago fijo registrado');
+}
+
+function totalCardDebt(){
+ return state.cards.reduce((s,c)=>s+Number(c.debt||0),0);
+}
+
+function totalFixedPending(){
+ return state.fixed.filter(f=>!f.paid).reduce((s,f)=>s+Number(f.amount||0),0);
+}
+
+function aPagar(){
+ return totalCardDebt()+totalFixedPending();
+}
+
+function saldoDisponible(){
+ return Number(state.saldo||0)-aPagar();
+}
+
+function render(){
+ document.getElementById('monthTitle').textContent=currentMonthLabel();
+ document.getElementById('saldoActual').textContent=money(state.saldo);
+ document.getElementById('nextIncome').textContent=`Próximo ingreso: ${money(state.salary)}`;
+ document.getElementById('monthlyIncome').textContent=`Sueldo mensual: ${money(state.salary*2)}`;
+ document.getElementById('aPagar').textContent=money(aPagar());
+ document.getElementById('saldoDisponible').textContent=money(saldoDisponible());
+ document.getElementById('savingTotal').textContent=money(state.saving);
+ document.getElementById('savingViewTotal').textContent=money(state.saving);
+ document.getElementById('payTotal').textContent=money(aPagar());
+
+ document.getElementById('cardSelect').innerHTML=state.cards.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+
+ document.getElementById('cardsHome').innerHTML=state.cards.length?state.cards.map(c=>`
+  <div class="row" onclick="payCard(${c.id})">
+   <div class="rowLeft">
+    <div class="icon icPurple">💳</div>
+    <div>
+     <div class="rowTitle">${c.name}</div>
+     <div class="rowSub">Pago: ${c.pay} de cada mes</div>
+    </div>
+   </div>
+   <div class="rowRight red">${money(c.debt)}</div>
+  </div>
+ `).join(''):'<div class="empty">Sin tarjetas</div>';
+
+ document.getElementById('cardsAdmin').innerHTML=state.cards.length?state.cards.map(c=>`
+  <div class="row" onclick="payCard(${c.id})">
+   <div>
+    <div class="rowTitle">${c.name}</div>
+    <div class="rowSub">Corte: ${c.cut} de cada mes · Pago: ${c.pay} de cada mes</div>
+    <div class="rowSub">Línea: ${money(c.limit)}</div>
+   </div>
+   <div class="rowRight red">${money(c.debt)}</div>
+  </div>
+ `).join(''):'<div class="empty">Sin tarjetas</div>';
+
+ document.getElementById('fixedHome').innerHTML=state.fixed.length?state.fixed.map(f=>`
+  <div class="row" onclick="payFixed(${f.id})">
+   <div class="rowLeft">
+    <div class="icon icAmber">📅</div>
+    <div>
+     <div class="rowTitle">${f.name}</div>
+     <div class="rowSub">${f.day} de ${currentMonthLabel().split(' ')[0]}</div>
+     <div class="status ${f.paid?'good':'warn'}">${f.paid?'Pagado':'Pendiente'}</div>
+    </div>
+   </div>
+   <div class="rowRight">${money(f.amount)}</div>
+  </div>
+ `).join(''):'<div class="empty">Sin gastos fijos</div>';
+
+ document.getElementById('fixedAdmin').innerHTML=state.fixed.length?state.fixed.map(f=>`
+  <div class="row" onclick="payFixed(${f.id})">
+   <div>
+    <div class="rowTitle">${f.name}</div>
+    <div class="rowSub">${f.day} de ${currentMonthLabel().split(' ')[0]}</div>
+    <div class="status ${f.paid?'good':'warn'}">${f.paid?'Pagado':'Pendiente'}</div>
+   </div>
+   <div class="rowRight">${money(f.amount)}</div>
+  </div>
+ `).join(''):'<div class="empty">Sin gastos fijos</div>';
+
+ document.getElementById('payList').innerHTML=[
+  ...state.cards.filter(c=>c.debt>0).map(c=>`<div class="row" onclick="payCard(${c.id})"><div><div class="rowTitle">${c.name}</div><div class="rowSub">Tarjeta de crédito</div></div><div class="rowRight red">${money(c.debt)}</div></div>`),
+  ...state.fixed.filter(f=>!f.paid).map(f=>`<div class="row" onclick="payFixed(${f.id})"><div><div class="rowTitle">${f.name}</div><div class="rowSub">${f.day} de ${currentMonthLabel().split(' ')[0]}</div></div><div class="rowRight">${money(f.amount)}</div></div>`)
+ ].join('')||'<div class="empty">Sin compromisos</div>';
+
+ document.getElementById('movesList').innerHTML=state.moves.length?state.moves.map(m=>{
+  const positive=m.type==='income';
+  const neutral=m.type==='saving'||m.type==='saving_withdraw';
+  const sign=positive?'+':neutral?'':'-';
+  const cls=positive?'green':neutral?'muted':'red';
+  return `<div class="row">
+   <div>
+    <div class="rowTitle">${m.concept}</div>
+    <div class="rowSub">${m.date}</div>
+   </div>
+   <div class="rowRight ${cls}">${sign}${money(m.amount)}</div>
+  </div>`
+ }).join(''):'<div class="empty">Sin movimientos</div>';
+
+ document.getElementById('savingList').innerHTML=state.moves.filter(m=>m.type==='saving'||m.type==='saving_withdraw').map(m=>`
+  <div class="row">
+   <div>
+    <div class="rowTitle" style="${m.type==='saving_withdraw'?'color:#9ca3af':''}">${m.concept}</div>
+    <div class="rowSub">${m.date}</div>
+   </div>
+   <div class="rowRight ${m.type==='saving'?'green':'muted'}">${m.type==='saving'?'+':'-'}${money(m.amount)}</div>
+  </div>
+ `).join('')||'<div class="empty">Sin movimientos de ahorro</div>';
+
+ const spend=state.moves.filter(m=>['expense','fixed_payment'].includes(m.type)).reduce((s,m)=>s+Number(m.amount||0),0);
+ document.getElementById('monthSpend').textContent=money(spend);
+ document.getElementById('variation').textContent='Pendiente';
+ document.getElementById('historyList').innerHTML='<div class="empty">Historial visual en desarrollo</div>';
+}
+
+load();
+render();
 </script>
 </body>
 </html>
